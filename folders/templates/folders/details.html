@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block main %}
+<h1>Viewing folder &quot;{{ folder.name }}&quot;</h1>
+
+{% if folder.parent %}
+    {% if folder.parent.parent %}
+    <a href="{% url 'folders:details' folder.parent.id %}">Go back</a>
+    {% else %}
+    <a href="{% url 'folders:root' %}">Go back</a>
+    {% endif %}
+{% endif %}
+
+<a href="{% url 'folders:add' folder.id %}">Add folder</a>
+<a href="{% url 'characters:add' folder.id %}">Add character</a>
+<ul>
+    {% for f in folder.folder_set.all %}
+    <li><a href="{% url 'folders:details' f.id %}">{{ f.name }}</a></li>
+    {% endfor %}
+</ul>
+<section>
+    <h1>Characters</h1>
+    <ul>
+        {% for char in folder.character_set.all %}
+        <li><a href="#">{{ char.name }}</a></li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}

@@ -25,4 +25,5 @@ urlpatterns = [
     path('', landing, name='landing'),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('folders/', include('folders.urls', namespace='folders')),
+    path('characters/', include('characters.urls', namespace='characters'))
 ]

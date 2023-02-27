@@ -1,9 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
+from folders.models import Folder
 
 # Create your models here.
 class Character(models.Model):
     owner = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_created=True, default=timezone.now)
+    folder = models.ForeignKey(Folder, null=True, on_delete=models.CASCADE)
 
     # basics
     name = models.CharField(max_length=200, null=False)
@@ -37,18 +41,18 @@ class Character(models.Model):
     criminal_record = models.CharField(max_length=2000, null=True, blank=True)
     education = models.CharField(max_length=2000, null=True, blank=True)
     forming_events = models.CharField(max_length=2000, null=True, blank=True)
-    romance = models.CharField(max_length=2000, null=True, blank=False)  # sex life? previous marriages?
-    relationships = models.CharField(max_length=2000, null=True, blank=False)
-    employment = models.CharField(max_length=2000, null=True, blank=False)  # employment history and current job
+    romance = models.CharField(max_length=2000, null=True, blank=True)  # sex life? previous marriages?
+    relationships = models.CharField(max_length=2000, null=True, blank=True)
+    employment = models.CharField(max_length=2000, null=True, blank=True)  # employment history and current job
     pets = models.CharField(max_length=2000, null=True, blank=True)
 
     # personality
-    hopes_and_dreams = models.CharField(max_length=2000, null=True, blank=False)
-    fears = models.CharField(max_length=2000, null=True, blank=False)
-    hobbies = models.CharField(max_length=2000, null=True, blank=False)
-    likes = models.CharField(max_length=2000, null=True, blank=False)
-    dislikes = models.CharField(max_length=2000, null=True, blank=False)
-    personality = models.CharField(max_length=2000, null=True, blank=False)
+    hopes_and_dreams = models.CharField(max_length=2000, null=True, blank=True)
+    fears = models.CharField(max_length=2000, null=True, blank=True)
+    hobbies = models.CharField(max_length=2000, null=True, blank=True)
+    likes = models.CharField(max_length=2000, null=True, blank=True)
+    dislikes = models.CharField(max_length=2000, null=True, blank=True)
+    personality = models.CharField(max_length=2000, null=True, blank=True)
 
     # misc
     skills = models.CharField(max_length=3000, null=True, blank=True)  # skills? superpowers?

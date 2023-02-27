@@ -2,7 +2,7 @@ from django.views.generic.edit import FormView
 from django.urls import reverse_lazy
 from accounts.forms import UserForm
 from django.contrib.auth.models import User
-from folders.models import Folder
+from folders.models import RootFolder
 
 class SignUpView(FormView):
     template_name = "accounts/signup.html"
@@ -21,8 +21,8 @@ class SignUpView(FormView):
         user = User.objects.create_user(username=username, password=password)
         user.save()
 
-        # automatically create the user's root folder
-        folder = Folder.objects.create(owner=user, name="default")
-        folder.save()
+        # create the root directory for that user
+        root = RootFolder.objects.create(root_owner=user, owner=user, name="root")
+        root.save()
         
         return super().form_valid(form)

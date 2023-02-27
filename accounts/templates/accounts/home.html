@@ -2,7 +2,7 @@
 
 {% block main %} 
 <h1>Welcome, {{ request.user.username }}!</h1>
-<a href="{% url 'folders:list' parent=0 %}">view your folders</a>
-<a href="#">view your characters</a>
+<a href="{% url 'folders:root' %}">view your root folder</a>
+<a href="#">view all your characters</a>
 <a href="{% url 'accounts:logout' %}">Log out</a>
 {% endblock %}
