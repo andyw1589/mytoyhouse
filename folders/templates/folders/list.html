@@ -1,0 +1,16 @@
+{% extends "base.html" %} 
+
+{% block main %} 
+{% if parent == 0 %}
+    <h1>Your folders</h1>
+{% else %} 
+    <h1>Viewing folder &quot;{{ parent_folder_name }}&quot;</h1>
+    <a href="{% url 'folders:list' back_id %}">go back</a>
+{% endif %}
+<a href="{% url 'folders:add' parent %}">Add folder</a>
+<ul>
+{% for folder in folders %} 
+    <li><a href="{% url 'folders:list' folder.id %}">{{ folder.name }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

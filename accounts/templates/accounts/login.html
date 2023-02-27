@@ -1,0 +1,25 @@
+{% extends "base.html" %} 
+
+{% block main %} 
+<form action="{% url 'accounts:login' %}" method="POST" class="mx-auto w-25">
+    {% csrf_token %} 
+    
+    <p>
+        {% if form.username.errors %} 
+        <div class="errors">{{ form.username.errors }}</div>
+        {% endif %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" value="{{ form.username.value|default_if_none:'' }}">
+    </p>
+    <p>
+        {% if form.password.errors %} 
+        <div class="errors">{{ form.password.errors }}</div>
+        {% endif %}
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" value="">
+    </p>
+
+    <input type="submit" value="Login">
+</form>
+<a href="{% url 'accounts:signup' %}">Sign up instead</a>
+{% endblock %}
