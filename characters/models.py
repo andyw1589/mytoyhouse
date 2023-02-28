@@ -60,3 +60,8 @@ class Character(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Tag(models.Model):
+    character = models.ForeignKey(Character, on_delete=models.CASCADE)
+    tag = models.CharField(max_length=100, null=False)

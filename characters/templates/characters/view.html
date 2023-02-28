@@ -1,0 +1,21 @@
+{% extends "base.html" %} 
+
+{% block main %} 
+<h1>Viewing character &quot;{{ char.name }}&quot;</h1>
+<a href="{% url 'folders:view' char.folder.id %}">Go back</a>
+<a href="#">Edit</a>
+<div id="character-view">
+    <section id="basics">
+        <h2>Basics:</h2>
+        <p>Name: {{ char.name }}</p>
+        <p>Nicknames: {{ char.nicknames }}</p>
+        <p>Age: {{ char.age }}</p>
+        <p>Sex: {{ char.sex }}</p>
+        <p>Gender: {{ char.gender }}</p>
+        <p>Religion: {{ char.religion }}</p>
+        <p>Race: {{ char.race }}</p>
+        <p>Species: {{ char.species }}</p>
+        <p>Description: {{ char.description }}</p>
+    </section>
+</div>
+{% endblock %}

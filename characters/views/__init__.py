@@ -1,1 +1,2 @@
 from .AddCharacterView import AddCharacterView
+from .DisplayCharacterView import DisplayCharacterView

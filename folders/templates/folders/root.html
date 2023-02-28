@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block main %}
-<h1>Your root folder</h1>
+<h1>Your folders</h1>
 <a href="{% url 'folders:add' root.id %}">Add folder</a>
 
 <ul>
     {% for folder in root.folder_set.all %}
-    <li><a href="{% url 'folders:details' folder.id %}">{{ folder.name }}</a></li>
+    <li><a href="{% url 'folders:view' folder.id %}">{{ folder.name }}</a></li>
     {% endfor %}
 </ul>
 {% endblock %}
