@@ -31,7 +31,7 @@ class Character(models.Model):
     eye_colour = models.CharField(max_length=50, null=True, blank=True)
     hair_colour = models.CharField(max_length=50, null=True, blank=True)
     eyesight = models.CharField(max_length=50, null=True, blank=True)
-    dominant_hand = models.CharField(max_length=20, null=True, blank=True)
+    handedness = models.CharField(max_length=20, null=True, blank=True)
     voice = models.CharField(max_length=100, null=True, blank=True)
     physical_description = models.CharField(max_length=2000, null=True, blank=True)
     clothing = models.CharField(max_length=2000, null=True, blank=True)

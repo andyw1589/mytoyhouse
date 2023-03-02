@@ -1,0 +1,11 @@
+#character-view {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+section {
+    background-color: lightgray;
+    border-radius: 1rem;
+}

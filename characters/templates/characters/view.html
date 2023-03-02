@@ -1,25 +1,96 @@
 {% extends "base.html" %} 
+{% load static %}
+
+{% block extra_imports %} 
+<link rel="stylesheet" href="{% static 'characters/view.css' %}">
+{% endblock %}
 
 {% block main %} 
 <h1>Viewing character &quot;{{ char.name }}&quot;</h1>
-<a href="{% url 'folders:view' char.folder.id %}">Go back</a>
+<a href="{% url 'folders:view' char.folder.id %}">View folder</a>
 
 {% if request.user.id == char.owner.id %}
 <a href="#">Edit</a>
+
+{% if char.private %} 
+<p>This character is <strong>private</strong></p>
+{% else %} 
+<p>This character is <strong>public</strong></p>
+{% endif %}
 {% endif %}
 <div id="character-view">
     <section id="basics">
         <h2>Basics:</h2>
         <p>Name: {{ char.name }}</p>
         <p>Nicknames: {{ char.nicknames }}</p>
-        <p>Age: {{ char.age }}</p>
-        <p>Sex: {{ char.sex }}</p>
-        <p>Gender: {{ char.gender }}</p>
+        <p>Age: {{ char.age|default_if_none:'Unspecified' }}</p>
+        <p>Sex: {{ char.sex|default_if_none:'Unspecified' }}</p>
+        <p>Gender: {{ char.gender|default_if_none:'Unspecified' }}</p>
         <p>Religion: {{ char.religion }}</p>
-        <p>Race: {{ char.race }}</p>
-        <p>Species: {{ char.species }}</p>
-        <p>Description: {{ char.description }}</p>
+        <p>Race: {{ char.race|default_if_none:'Unspecified' }}</p>
+        <p>Species: {{ char.species|default_if_none:'Unspecified' }}</p>
+        <p>Description: {{ char.description|default_if_none:'' }}</p>
     </section>
+
+    <section id="birth">
+        <h2>Birth Details:</h2>
+        <p>Birthday: {{ char.birthday|default_if_none:'Unspecified' }}</p>
+        <p>Birthplace: {{ char.birthplace|default_if_none:'Unspecified' }}</p>
+    </section>
+
+    <section id="physical">
+        <h2>Physicality:</h2>
+        <p>Blood type: {{ char.blood_type|default_if_none:'Unspecified' }}</p>
+
+        {% if char.height %}
+        <p>Height: {{ char.height }}m</p>
+        {% else %} 
+        <p>Height: Unspecified</p>
+        {% endif %}
+
+        {% if char.weight %}
+        <p>Weight: {{ char.weight }}kg</p>
+        {% else %} 
+        <p>Weight: Unspecified</p>
+        {% endif %}
+
+        <p>Eye colour: {{ char.eye_colour|default_if_none:'Unspecified' }}</p>
+        <p>Hair colour: {{ char.hair_colour|default_if_none:'Unspecified' }}</p>
+        <p>Eyesight: {{ char.eyesight|default_if_none:'Unspecified' }}</p>
+        <p>Handedness: {{ char.handedness|default_if_none:'Unspecified' }}</p>
+        <p>Voice: {{ char.voice|default_if_none:'Unspecified' }}</p>
+        <p>Physical description: {{ char.physical_description|default_if_none:'' }}</p>
+        <p>Clothing: {{ char.clothing|default_if_none:'Unspecified' }}</p>
+    </section>
+
+    <section id="history">
+        <h2>History and Relationships:</h2>
+        <p>Medical history: {{ char.medical_history }}</p>
+        <p>Criminal record: {{ char.criminal_record }}</p>
+        <p>Education: {{ char.education|default_if_none:'Unspecified' }}</p>
+        <p>Forming events: {{ char.forming_events }}</p>
+        <p>Romantic history: {{ char.romance }}</p>
+        <p>Employment history: {{ char.employment }}</p>
+        <p>Relationships: {{ char.relationships|default_if_none:'Unspecified' }}</p>
+        <p>Pets: {{ char.pets }}</p>
+    </section>
+
+    <section id="personality">
+        <h2>Personality</h2>
+        <p>Hopes and dreams: {{ char.hopes_and_dreams }}</p>
+        <p>Fears: {{ char.fears }}</p>
+        <p>Hobbies: {{ char.hobbies }}</p>
+        <p>Likes: {{ char.likes }}</p>
+        <p>Dislikes: {{ char.dislikes }}</p>
+        <p>Personality: {{ char.personality|default_if_none:'Unspecified' }}</p>
+    </section>
+
+    <section id="misc">
+        <h2>Ability:</h2>
+        <p>Skills: {{ char.skills }}</p>
+        <p>Weaknesses: {{ char.weaknesses }}</p>
+    </section>
+
     <section id="tags">
         <h2>Tags:</h2>
         <p>
