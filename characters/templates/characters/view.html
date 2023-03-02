@@ -3,7 +3,10 @@
 {% block main %} 
 <h1>Viewing character &quot;{{ char.name }}&quot;</h1>
 <a href="{% url 'folders:view' char.folder.id %}">Go back</a>
+
+{% if request.user.id == char.owner.id %}
 <a href="#">Edit</a>
+{% endif %}
 <div id="character-view">
     <section id="basics">
         <h2>Basics:</h2>
@@ -16,6 +19,14 @@
         <p>Race: {{ char.race }}</p>
         <p>Species: {{ char.species }}</p>
         <p>Description: {{ char.description }}</p>
+    </section>
+    <section id="tags">
+        <h2>Tags:</h2>
+        <p>
+        {% for tag in char.tag_set.all %}
+        {{ tag.tag }}, 
+        {% endfor %}
+        </p>
     </section>
 </div>
 {% endblock %}

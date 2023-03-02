@@ -1,12 +1,18 @@
 {% extends "base.html" %}
 
 {% block main %}
+{% if request.user.id == root.owner.id %}
 <h1>Your folders</h1>
 <a href="{% url 'folders:add' root.id %}">Add folder</a>
+{% else %} 
+<h1>Viewing {{ root.owner.username }}'s folders</h1>
+{% endif %}
 
 <ul>
     {% for folder in root.folder_set.all %}
+    {% if folder.owner.id == request.user.id or not folder.private %}
     <li><a href="{% url 'folders:view' folder.id %}">{{ folder.name }}</a></li>
+    {% endif %}
     {% endfor %}
 </ul>
 {% endblock %}

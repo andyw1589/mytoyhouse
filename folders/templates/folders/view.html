@@ -4,25 +4,28 @@
 <h1>Viewing folder &quot;{{ folder.name }}&quot;</h1>
 
 {% if folder.parent %}
-    {% if folder.parent.parent %}
     <a href="{% url 'folders:view' folder.parent.id %}">Go back</a>
-    {% else %}
-    <a href="{% url 'folders:root' %}">Go back</a>
-    {% endif %}
 {% endif %}
 
+{% if request.user.id == folder.owner.id %}
 <a href="{% url 'folders:add' folder.id %}">Add folder</a>
 <a href="{% url 'characters:add' folder.id %}">Add character</a>
+{% endif %} 
+
 <ul>
     {% for f in folder.folder_set.all %}
+    {% if f.owner.id == request.user.id or not f.private %}
     <li><a href="{% url 'folders:view' f.id %}">{{ f.name }}</a></li>
+    {% endif %}
     {% endfor %}
 </ul>
 <section>
     <h1>Characters</h1>
     <ul>
         {% for char in folder.character_set.all %}
+        {% if char.owner.id == request.user.id or not char.private %}
         <li><a href="{% url 'characters:view' char.id %}">{{ char.name }}</a></li>
+        {% endif %}
         {% endfor %}
     </ul>
 </section>

@@ -1,5 +1,6 @@
 from django.views.generic.edit import CreateView
 from folders.models import Folder
+from characters.models import Tag
 from characters.forms import CharacterForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -12,18 +13,18 @@ class AddCharacterView(LoginRequiredMixin, CreateView):
 
     def get(self, request, folder):
         # user must be the owner of the target folder
-        if folder != 0:
-            folder = Folder.objects.get(id=folder)
-            if folder.owner != request.user:
-                return HttpResponseForbidden()
+        folder = Folder.objects.get(id=folder)
+        if folder.owner != request.user:
+            return HttpResponseForbidden()
+        
         return super().get(request, folder)
     
     def post(self, request, folder):
         # user must be the owner
-        if folder != 0:
-            folder = Folder.objects.get(id=folder)
-            if folder.owner != request.user:
-                return HttpResponseForbidden()
+        folder = Folder.objects.get(id=folder)
+        if folder.owner != request.user:
+            return HttpResponseForbidden()
+        
         return super().post(request, folder)
 
     def get_context_data(self, **kwargs):
@@ -36,7 +37,16 @@ class AddCharacterView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
-        return super().form_valid(form)
+        data = super().form_valid(form)  # save the character
+        
+        # process the tags
+        tags = form.cleaned_data["tags"].split(',')
+        for tag in tags:
+            tag = tag.strip()
+            new_tag = Tag.objects.create(character=form.instance, tag=tag)
+            new_tag.save()
+
+        return data
     
     def get_form(self, *args, **kwargs):
         form = super().get_form(*args, **kwargs)

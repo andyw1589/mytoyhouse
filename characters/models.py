@@ -57,6 +57,7 @@ class Character(models.Model):
     # misc
     skills = models.CharField(max_length=3000, null=True, blank=True)  # skills? superpowers?
     weaknesses = models.CharField(max_length=3000, null=True, blank=True)
+    private = models.BooleanField(null=False, default=False)  # whether other people can view this character
 
     def __str__(self):
         return self.name

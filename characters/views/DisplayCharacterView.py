@@ -11,10 +11,11 @@ class DisplayCharacterView(LoginRequiredMixin, DetailView):
     model = Character
 
     def get(self, request, pk):
-        # user must be the owner
+        # private?
         char = Character.objects.get(id=pk)
-        if char.owner != request.user:
+        if char.owner != request.user and char.private:
             return HttpResponseForbidden()
+        
         return super().get(request, pk)
     
     def post(self, request, pk):

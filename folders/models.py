@@ -8,6 +8,7 @@ class Folder(models.Model):
     parent = models.ForeignKey("self", null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, null=False)
     created = models.TimeField(auto_created=True, default=timezone.now)
+    private = models.BooleanField(null=False, default=False)  # whether other people can view this folder
 
     def __str__(self):
         return self.name
