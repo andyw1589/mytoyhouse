@@ -5,6 +5,7 @@ from characters.forms import CharacterForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.http import HttpResponseForbidden
+from django.shortcuts import get_object_or_404
 
 class AddCharacterView(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy("accounts:login")
@@ -13,7 +14,7 @@ class AddCharacterView(LoginRequiredMixin, CreateView):
 
     def get(self, request, folder):
         # user must be the owner of the target folder
-        folder = Folder.objects.get(id=folder)
+        folder = get_object_or_404(Folder, id=folder)
         if folder.owner != request.user:
             return HttpResponseForbidden()
         
@@ -21,7 +22,7 @@ class AddCharacterView(LoginRequiredMixin, CreateView):
     
     def post(self, request, folder):
         # user must be the owner
-        folder = Folder.objects.get(id=folder)
+        folder = get_object_or_404(Folder, id=folder)
         if folder.owner != request.user:
             return HttpResponseForbidden()
         
@@ -40,9 +41,11 @@ class AddCharacterView(LoginRequiredMixin, CreateView):
         data = super().form_valid(form)  # save the character
         
         # process the tags
-        tags = form.cleaned_data["tags"].split(',')
+        tags = list(map(str.strip, form.cleaned_data["tags"].split(',')))
         for tag in tags:
-            tag = tag.strip()
+            if tag == '':
+                continue  # this happens if initial tags is blank
+            
             new_tag = Tag.objects.create(character=form.instance, tag=tag)
             new_tag.save()
 

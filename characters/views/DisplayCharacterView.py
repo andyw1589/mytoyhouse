@@ -12,7 +12,7 @@ class DisplayCharacterView(LoginRequiredMixin, DetailView):
 
     def get(self, request, pk):
         # private?
-        char = Character.objects.get(id=pk)
+        char = self.get_object()
         if char.owner != request.user and char.private:
             return HttpResponseForbidden()
         

@@ -7,7 +7,7 @@ class Folder(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     parent = models.ForeignKey("self", null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, null=False)
-    created = models.TimeField(auto_created=True, default=timezone.now)
+    created = models.DateTimeField(auto_created=True, default=timezone.now)
     private = models.BooleanField(null=False, default=False)  # whether other people can view this folder
     description = models.CharField(max_length=200, null=True, blank=True)
 

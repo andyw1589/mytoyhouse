@@ -10,7 +10,7 @@
 <a href="{% url 'folders:view' char.folder.id %}">View folder</a>
 
 {% if request.user.id == char.owner.id %}
-<a href="#">Edit</a>
+<a href="{% url 'characters:edit' char.id %}">Edit</a>
 
 {% if char.private %} 
 <p>This character is <strong>private</strong></p>

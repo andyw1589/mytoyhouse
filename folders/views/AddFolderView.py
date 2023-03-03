@@ -3,6 +3,7 @@ from folders.models import Folder
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.http import HttpResponseForbidden
+from django.shortcuts import get_object_or_404
 
 class AddFolderView(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy("accounts:login")
@@ -12,14 +13,14 @@ class AddFolderView(LoginRequiredMixin, CreateView):
 
     def get(self, request, parent):
         # user must be the owner
-        parent = Folder.objects.get(id=parent)
+        parent = get_object_or_404(Folder, id=parent)
         if parent.owner != request.user:
             return HttpResponseForbidden()
         return super().get(request, parent)
     
     def post(self, request, parent):
         # user must be the owner
-        parent = Folder.objects.get(id=parent)
+        parent = get_object_or_404(Folder, id=parent)
         if parent.owner != request.user:
             return HttpResponseForbidden()
         return super().post(request, parent)

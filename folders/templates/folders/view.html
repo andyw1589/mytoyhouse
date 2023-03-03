@@ -10,7 +10,7 @@
 {% if request.user.id == folder.owner.id %}
 <a href="{% url 'folders:add' folder.id %}">Add folder</a>
 <a href="{% url 'characters:add' folder.id %}">Add character</a>
-<a href="{% url 'folders:edit' folder.id %}">Edit folder</a>
+<a href="{% url 'folders:edit' folder.id %}">Edit</a>
 
 {% if folder.private %} 
 <p>This folder is <strong>private</strong></p>

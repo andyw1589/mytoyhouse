@@ -61,8 +61,15 @@ class Character(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def list_tags(self):
+        # return a list of this character's tags as list of strings
+        return list(map(str, self.tag_set.all()))
 
 
 class Tag(models.Model):
     character = models.ForeignKey(Character, on_delete=models.CASCADE)
     tag = models.CharField(max_length=100, null=False)
+
+    def __str__(self):
+        return self.tag
