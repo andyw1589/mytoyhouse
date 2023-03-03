@@ -10,6 +10,7 @@
 {% if request.user.id == folder.owner.id %}
 <a href="{% url 'folders:add' folder.id %}">Add folder</a>
 <a href="{% url 'characters:add' folder.id %}">Add character</a>
+<a href="{% url 'folders:edit' folder.id %}">Edit folder</a>
 
 {% if folder.private %} 
 <p>This folder is <strong>private</strong></p>
@@ -18,8 +19,13 @@
 {% endif %}
 {% endif %} 
 
+{% if folder.description %}
+<p>{{ folder.description }}</p>
+{% endif %}
+<p>Created {{ folder.created }}</p>
+
 <ul>
-    {% for f in folder.folder_set.all %}
+    {% for f in folder.folder_set.all|dictsort:'name' %}
     {% if f.owner.id == request.user.id or not f.private %}
     <li><a href="{% url 'folders:view' f.id %}">{{ f.name }}</a></li>
     {% endif %}
@@ -28,7 +34,7 @@
 <section>
     <h1>Characters</h1>
     <ul>
-        {% for char in folder.character_set.all %}
+        {% for char in folder.character_set.all|dictsort:'name' %}
         {% if char.owner.id == request.user.id or not char.private %}
         <li><a href="{% url 'characters:view' char.id %}">{{ char.name }}</a></li>
         {% endif %}

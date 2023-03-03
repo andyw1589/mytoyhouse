@@ -9,7 +9,7 @@
 {% endif %}
 
 <ul>
-    {% for folder in root.folder_set.all %}
+    {% for folder in root.folder_set.all|dictsort:'name' %}
     {% if folder.owner.id == request.user.id or not folder.private %}
     <li><a href="{% url 'folders:view' folder.id %}">{{ folder.name }}</a></li>
     {% endif %}

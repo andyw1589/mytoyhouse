@@ -33,7 +33,7 @@ class AddCharacterView(LoginRequiredMixin, CreateView):
         return data
 
     def get_success_url(self) -> str:
-        return  reverse_lazy("folders:view", kwargs={"pk": self.kwargs["folder"]})
+        return reverse_lazy("characters:view", kwargs={"pk": self.get_form().instance.id})
 
     def form_valid(self, form):
         form.instance.owner = self.request.user

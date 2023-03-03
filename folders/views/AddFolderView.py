@@ -8,7 +8,7 @@ class AddFolderView(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy("accounts:login")
     model = Folder
     template_name = "folders/add.html"
-    fields = ["parent", "name", "private"]
+    fields = ["parent", "name", "description", "private"]
 
     def get(self, request, parent):
         # user must be the owner
