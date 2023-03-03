@@ -11,6 +11,7 @@
 
 {% if request.user.id == char.owner.id %}
 <a href="{% url 'characters:edit' char.id %}">Edit</a>
+<a href="#">Delete</a>
 
 {% if char.private %} 
 <p>This character is <strong>private</strong></p>
