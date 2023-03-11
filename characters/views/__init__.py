@@ -1,3 +1,4 @@
 from .AddCharacterView import AddCharacterView
 from .DisplayCharacterView import DisplayCharacterView
 from .EditCharacterView import EditCharacterView
+from .DeleteCharacterView import DeleteCharacterView

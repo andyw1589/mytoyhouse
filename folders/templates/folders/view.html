@@ -11,7 +11,16 @@
 <a href="{% url 'folders:add' folder.id %}">Add folder</a>
 <a href="{% url 'characters:add' folder.id %}">Add character</a>
 <a href="{% url 'folders:edit' folder.id %}">Edit</a>
-<a href="#">Delete</a>
+<a href="{% url 'folders:delete' folder.id %}">Delete</a>
+
+{% if delete_confirmation %}
+<form action="{% url 'folders:delete' folder.id %}" method="POST">
+    {% csrf_token %}
+    <p>Are you sure you want to delete this folder?</p>
+    {{ form }}
+    <input type="submit" value="Confirm">
+</form>
+{% endif %}
 
 {% if folder.private %} 
 <p>This folder is <strong>private</strong></p>

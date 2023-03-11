@@ -5,9 +5,9 @@ from folders.models import Folder
 
 # Create your models here.
 class Character(models.Model):
-    owner = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_created=True, default=timezone.now)
-    folder = models.ForeignKey(Folder, null=True, on_delete=models.CASCADE)
+    folder = models.ForeignKey(Folder, null=False, on_delete=models.CASCADE)
 
     # basics
     name = models.CharField(max_length=200, null=False)
